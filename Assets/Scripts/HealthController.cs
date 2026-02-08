@@ -219,6 +219,7 @@ public class HealthController : MonoBehaviour
 			
 		transform.position = respawnPoint;
 		health = maxHealth;
+		previousHealth = maxHealth;
 		spawnedInTime = Time.time;
 
         if (animator)

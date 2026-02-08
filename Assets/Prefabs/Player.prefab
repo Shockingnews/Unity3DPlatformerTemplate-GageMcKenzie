@@ -130,7 +130,7 @@ MonoBehaviour:
   collisionAudioClip: {fileID: 0}
   damageAudioClip: {fileID: 0}
   deathAudioClip: {fileID: 0}
-  health: 20
+  health: 1
   takesCollisionDamageFromRigidbodies: 0
   takesCollisionDamageFromStaticbodies: 0
   minCollisionDamageVelocity: 0.2
