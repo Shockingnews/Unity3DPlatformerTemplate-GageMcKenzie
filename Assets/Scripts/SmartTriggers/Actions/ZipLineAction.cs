@@ -1,16 +1,92 @@
 using UnityEngine;
 
-public class ZIpLineAction : MonoBehaviour
+public class ZIpLineAction : PhysicsInteractable
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    [Tooltip("Force required to break the connection with the player")]
+    [SerializeField] private float jointBreakForce = 200f;
+    [Tooltip("Rotational force required to break the connection with the player")]
+    [SerializeField] private float jointBreakTorque = 200f;
+
+    private MovementController movementController;
+    private float defaultPlayerRotationSpeed;
+    [SerializeField] WaypointMover waypoint;
+
+    private void OnJointBreak(float breakForce)
     {
-        
+        //Debug.Log($"JOINT BROKE! FORCE {breakForce}");
+        if (currentInteractor != null)
+            currentInteractor.EndCurrentInteraction();
     }
 
-    // Update is called once per frame
-    void Update()
+    public override bool OnInteract(InteractionController controller)
     {
         
+        if (!base.OnInteract(controller)) return false;
+
+        
+        currentInteractor = controller;
+        rb.interpolation = RigidbodyInterpolation.Interpolate;
+
+        
+        movementController = controller.GetComponent<MovementController>();
+        if (movementController)
+        {
+            movementController.overrideCanJump = true;
+            if (movementController is AdvancedMoveController)
+            {
+                (movementController as AdvancedMoveController).onJumpPerformed.AddListener(PusherJumped);
+            }
+            
+        }
+
+        AttachToController<FixedJoint>(controller);
+        return true;
+    }
+
+    public override void OnInteractedAlreadyInteracting(InteractionController controller)
+    {
+        base.OnInteractedAlreadyInteracting(controller);
+        PusherJumped();
+    }
+
+    protected void PusherJumped()
+    {
+        if (currentInteractor) OnInteractionEnd(currentInteractor);
+    }
+    /// <summary>
+    /// Overrides the base attachment to add break force limits to the joint.
+    /// </summary>
+   
+    protected override void AttachToController<T>(InteractionController controller)
+    {
+        base.AttachToController<T>(controller);
+        if (physicsJoint != null)
+        {
+            physicsJoint.breakForce = jointBreakForce;
+            physicsJoint.breakTorque = jointBreakTorque;
+            physicsJoint.massScale = 3.0f;
+            physicsJoint.connectedMassScale = 3.0f;
+        }
+    }
+
+    public override void OnInteractionEnd(InteractionController controller)
+    {
+        if (currentInteractor == null) return;
+
+        DetachFromController();
+        rb.interpolation = defaultInterpolation;
+
+        // Restore player's original rotation speed
+        if (movementController != null)
+        {
+            movementController.overrideCanJump = false;
+            if (movementController is AdvancedMoveController)
+            {
+                (movementController as AdvancedMoveController).onJumpPerformed.RemoveListener(PusherJumped);
+            }
+            movementController.rotationSpeed = defaultPlayerRotationSpeed;
+            movementController = null;
+        }
+        base.OnInteractionEnd(controller);
     }
 }
