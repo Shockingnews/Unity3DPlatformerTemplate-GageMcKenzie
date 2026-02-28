@@ -1,5 +1,140 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1469081422875533866
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6820912990879191852}
+  - component: {fileID: 8400111461252256276}
+  - component: {fileID: 5841584405996251628}
+  m_Layer: 0
+  m_Name: button
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6820912990879191852
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1469081422875533866}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.765, y: -0.011, z: 0.653}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 274621083043320994}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8400111461252256276
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1469081422875533866}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0aae16cee012a84dbc4589bd4574d4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerOptions: 1
+  triggerLayers:
+    serializedVersion: 2
+    m_Bits: 64
+  cooldownBeforeReactivation: 0
+  requiredWeight: 0
+  togglableByInteraction: 0
+  triggerTags: []
+  onTriggerActions:
+    rid: 2668921074026283008
+  onUntriggerActions:
+    rid: 2668921074026283009
+  references:
+    version: 2
+    RefIds:
+    - rid: 2668921074026283008
+      type: {class: TriggerActionsList, ns: , asm: Assembly-CSharp}
+      data:
+        list:
+        - rid: 2668921074026283080
+        - rid: 2668921074026283085
+        - rid: 2668921074606932041
+    - rid: 2668921074026283009
+      type: {class: TriggerActionsList, ns: , asm: Assembly-CSharp}
+      data:
+        list: []
+    - rid: 2668921074026283080
+      type: {class: DOTweenAction, ns: , asm: Assembly-CSharp}
+      data:
+        runInParallel: 0
+        target: {fileID: 0}
+        targetTransform: {fileID: 0}
+        tweenType: 0
+        tweenMode: 0
+        value: {x: 0, y: 0, z: 0}
+        useLocalSpace: 0
+        duration: 1
+        easeType: 6
+        snapping: 0
+        vibrato: 10
+        elasticity: 1
+        fadeCanvasGroup: 0
+    - rid: 2668921074026283085
+      type: {class: UnityEventAction, ns: , asm: Assembly-CSharp}
+      data:
+        runInParallel: 0
+        onExecute:
+          m_PersistentCalls:
+            m_Calls:
+            - m_Target: {fileID: 0}
+              m_TargetAssemblyTypeName: FollowPlayer, Assembly-CSharp
+              m_MethodName: ToggleActive
+              m_Mode: 1
+              m_Arguments:
+                m_ObjectArgument: {fileID: 0}
+                m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+                m_IntArgument: 0
+                m_FloatArgument: 0
+                m_StringArgument: 
+                m_BoolArgument: 0
+              m_CallState: 2
+        completionType: 2
+        completionDelay: 0
+    - rid: 2668921074606932041
+      type: {class: PlaySoundAction, ns: , asm: Assembly-CSharp}
+      data:
+        runInParallel: 0
+        audioClip: {fileID: 8300000, guid: 4a4c9328ca9879c4cb4f32934897e265, type: 3}
+        playLocation: {fileID: 0}
+--- !u!65 &5841584405996251628
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1469081422875533866}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &2165750556446894513
 GameObject:
   m_ObjectHideFlags: 0
@@ -661,7 +796,6 @@ GameObject:
   - component: {fileID: 274621083043320994}
   - component: {fileID: 228638830008253121}
   - component: {fileID: 5842945523726016293}
-  - component: {fileID: 529330417894822560}
   m_Layer: 0
   m_Name: ZipLine
   m_TagString: ZipLine
@@ -689,6 +823,7 @@ Transform:
   - {fileID: 8988357868204382860}
   - {fileID: 4972266112470904096}
   - {fileID: 7821551002857119089}
+  - {fileID: 6820912990879191852}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &228638830008253121
@@ -706,9 +841,9 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
@@ -739,18 +874,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &529330417894822560
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8988201235950838314}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 66c789f3c5c503948a250e02088544b7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &9090127982495884426
 GameObject:
   m_ObjectHideFlags: 0
@@ -776,7 +899,7 @@ Transform:
   m_GameObject: {fileID: 9090127982495884426}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.054188, y: 0.6452981, z: 0.751359}
+  m_LocalPosition: {x: 1.054188, y: -1.17, z: 0.751359}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

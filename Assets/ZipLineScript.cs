@@ -8,7 +8,7 @@ public class ZipLineScript : MonoBehaviour
     [SerializeField] private float Zipspeed = 5f;
     [SerializeField] private float arrival = 0.4f;
 
-    static GameObject player;
+    [SerializeField] private GameObject player;
 
     public Transform ZipTransform;
 
@@ -17,15 +17,17 @@ public class ZipLineScript : MonoBehaviour
 
     private void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player");
+        player = GameObject.Find("Player(Clone)");
     }
 
     private void Update()
     {
-        if(player  == null)
+        if (player == null)
         {
-            player = GameObject.FindGameObjectWithTag("Player");
+            GameObject.Find("Player(Clone)");
         }
+            
+        
         //if (!onZippLine) return;
         localZipLine.GetComponent<Rigidbody>().AddForce((targetZip.ZipTransform.position - ZipTransform.position));
         if (Vector3.Distance(localZipLine.transform.position, targetZip.ZipTransform.position) <= arrival)
@@ -48,10 +50,11 @@ public class ZipLineScript : MonoBehaviour
         player.GetComponent<Rigidbody>().linearVelocity = Vector3.zero;
         player.GetComponent<PlayerController>().enabled = false;
         //player.GetComponent<PlayerInput>().enabled = false;
+        player.transform.parent = localZipLine.transform;
         onZippLine = true;
     }
 
-    private void ResetZip()
+    public void ResetZip()
     {
         if (!onZippLine) return;
         player = localZipLine.transform.GetChild(0).gameObject;
@@ -60,6 +63,8 @@ public class ZipLineScript : MonoBehaviour
         player.GetComponent<Rigidbody>().linearVelocity = Vector3.zero;
         player.GetComponent<PlayerController>().enabled = true;
         //player.GetComponent<PlayerInput>().enabled = true;
+        player.transform.parent = null;
+        localZipLine = null;
         Destroy(localZipLine);
         onZippLine = false;
     }
